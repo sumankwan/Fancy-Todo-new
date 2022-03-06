@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="444938398854-84h17uaogolmed8g8csrt2dm1q12ae87.apps.googleusercontent.com">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        body {margin: auto; width: 50%; background-image: url("./assets/login-form.jpg");}
+        .g-signin2 {margin: auto; width: 20%;}
+        #add-description {height: 100px;}
+        #update-description {height: 100px;}
+        #logout {float: right;}
+        #form-header {padding-bottom: 35px;}
+        .md-form {padding-bottom: 25px;}
+    </style>
+    <title>Fancy Todo</title>
+</head>
+<body>
+
+    <section id="login-page">
+        <div class="card">
+            <div id="form-header">
+                <h5 class="card-header info-color white-text text-center py-4">
+                <strong>Sign in</strong>
+                </h5>
+            </div>
+            <div class="card-body px-lg-5 pt-0">
+                <form class="text-center" style="color: #757575;" action="#!" onsubmit="login(event)">
+            
+                    <div class="md-form">
+                        <input type="email" id="login-email" class="form-control">
+                        <label for="materialLoginFormEmail">E-mail</label>
+                    </div>
+                    
+                    <div class="md-form">
+                        <input type="password" id="login-password" class="form-control">
+                        <label for="materialLoginFormPassword">Password</label>
+                    </div>
+            
+                    <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
+
+                    <p>Not a user?
+                        <a href="" onclick="showRegisterForm(event)">Register</a>
+                      </p>
+            
+                    <p>or sign in with:</p>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div><br>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="register-page">
+        <div class="card">
+            <div id="form-header">
+                <h5 class="card-header info-color white-text text-center py-4">
+                <strong>Register</strong>
+                </h5>
+            </div>
+            <div class="card-body px-lg-5 pt-0">
+                <form class="text-center" style="color: #757575;" action="#!" onsubmit="register(event)">
+            
+                    <div class="md-form">
+                        <input type="email" id="register-email" class="form-control">
+                        <label for="materialLoginFormEmail">E-mail</label>
+                    </div>
+                    
+                    <div class="md-form">
+                        <input type="password" id="register-password" class="form-control">
+                        <label for="materialLoginFormPassword">Password</label>
+                    </div>
+            
+                    <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Register</button>
+                    
+                    <button type="button" class="btn btn-danger" onclick="checkAuth()">Back</button>
+            
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="home-page">
+        <button class="btn btn-secondary btn-sm active" id="logout" onclick="logout()">Logout</button>
+        <button class="btn btn-primary" onclick="ShowAddTodoForm()">Add Todo</button><br><br>
+            <button class="btn btn btn-warning btn-large" onclick="showYears()">Check public holidays to plan better!</button>
+        <div id="show-todos"></div>
+    </section>
+
+    <section id="addform-page">
+        <div class="card">
+            <div id="form-header">
+                <h5 class="card-header info-color white-text text-center py-4">
+                <strong>Add Todo</strong>
+                </h5>
+            </div>
+            <div class="card-body px-lg-5 pt-0">
+                <form class="text-center" style="color: #757575;" action="#!" onsubmit="addTodo(event)">
+            
+                    <div class="md-form">
+                        <input type="text" id="add-title" class="form-control">
+                        <label for="materialLoginFormEmail">Title</label>
+                    </div>
+                    <div class="md-form">
+                        <input type="text" id="add-description" class="form-control">
+                        <label for="materialLoginFormPassword">Description</label>
+                    </div>
+                    <div class="md-form">
+                        <input type="text" id="add-status" class="form-control">
+                        <label for="materialLoginFormPassword">Status</label>
+                    </div>
+                    <div class="md-form">
+                        <input type="date" id="add-due_date" class="form-control">
+                        <label for="materialLoginFormPassword">Due Date</label>
+                    </div>
+            
+                    <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="updateform-page">
+        <div class="card">
+            <div id="form-header">
+                <h5 class="card-header info-color white-text text-center py-4">
+                <strong>Update Todo</strong>
+                </h5>
+            </div>
+            <div class="card-body px-lg-5 pt-0">
+                <form class="text-center" style="color: #757575;" action="#!" onsubmit="updateTodo(event)">
+            
+                    <input type="hidden" id="update-id" class="form-control">
+                    <div class="md-form">
+                        <input type="text" id="update-title" class="form-control">
+                        <label for="materialLoginFormEmail">Title</label>
+                    </div>
+                    <div class="md-form">
+                        <input type="text" id="update-description" class="form-control">
+                        <label for="materialLoginFormPassword">Description</label>
+                    </div>
+                    <div class="md-form">
+                        <input type="text" id="update-status" class="form-control">
+                        <label for="materialLoginFormPassword">Status</label>
+                    </div>
+                    <div class="md-form">
+                        <input type="date" id="update-due_date" class="form-control">
+                        <label for="materialLoginFormPassword">Due Date</label>
+                    </div>
+            
+                    <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="holiday-years">
+        <select id="show-years"></select>
+        <button class="btn btn btn-warning btn-large" onclick="getHoliday()">Select year to show public holiday!</button><br>
+        <button type="button" class="btn btn-danger" onclick="checkAuth()">Back</button>
+    </section>
+
+    <section id="holiday-page">
+        <div id="show-holidays"></div>
+    </section>
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</body>
+</html>
